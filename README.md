@@ -1,4 +1,4 @@
-# Loan State Ledger (LSL)
+# Loan State Ledger (LSL) - Who, what, when answered.
 
 ## Overview
 Loan State Ledger (LSL) is a desktop-first web prototype that demonstrates a novel approach to managing the current state of syndicated and agented loans. Instead of relying on fragmented email threads, spreadsheets, and siloed internal systems, LSL models loans as deterministic state machines, with explicit events, acknowledgements, and effective timestamps. This provides a single, authoritative view of a loan’s status at any given time.
