@@ -11,6 +11,7 @@ export const MOCK_LOAN: Loan = {
         { id: "lender_a", name: "Evergreen Capital", role: "Lender", avatar: "EC", color: "bg-green-600" },
         { id: "lender_b", name: "Highline Debt Fund", role: "Lender", avatar: "HL", color: "bg-purple-600" },
         { id: "borrower", name: "Omega Shipping Corp", role: "Borrower", avatar: "OS", color: "bg-slate-800" },
+        { id: "system", name: "Auto-Covenant Bot", role: "System", avatar: "AI", color: "bg-indigo-500" },
     ],
     events: [
         {
