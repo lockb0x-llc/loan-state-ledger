@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Loan State Ledger (LSL)
 
-## Getting Started
+## Overview
+Loan State Ledger (LSL) is a desktop-first web prototype that demonstrates a novel approach to managing the current state of syndicated and agented loans. Instead of relying on fragmented email threads, spreadsheets, and siloed internal systems, LSL models loans as deterministic state machines, with explicit events, acknowledgements, and effective timestamps. This provides a single, authoritative view of a loan’s status at any given time.
 
-First, run the development server:
+This application implements the lockb0x protocol, an open standard for proving the existence, integrity, and custodianship of digital data. https://datatracker.ietf.org/doc/draft-tomlinson-lockb0x/00
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Problem Statement
+In syndicated loans, multiple parties—agent banks, lenders, borrowers, and legal counsel—maintain separate interpretations of key events such as amendments, waivers, notices, and conditions precedent. This leads to disputes, operational inefficiencies, and legal ambiguity. Current tools primarily focus on documents or reporting, leaving the problem of state ambiguity largely unsolved.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Solution
+LSL introduces a deterministic, append-only ledger that tracks loan events from assertion through acknowledgement to effective status. It visualizes loan state in a clear timeline and highlights ambiguities, making the current status of any loan transparent and auditable. The prototype demonstrates how a distributed-system-inspired model can reduce disputes and operational risk without replacing existing systems.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Core Features
+- Append-only loan event ledger capturing every action and acknowledgement.
+- Deterministic derivation of event state: **ASSERTED**, **PENDING**, or **EFFECTIVE**.
+- Visual timeline showing the progression of events and highlighting ambiguity.
+- Event detail view displaying required acknowledgements, evidence links, and current status.
+- Ambiguity view that flags unresolved or partially acknowledged events.
+- System-of-record explanation view showing how LSL overlays existing platforms and workflows.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technology Stack
+- **Languages:** TypeScript
+- **Frameworks & Libraries:** Next.js (App Router), React, Tailwind CSS
+- **Platform:** Desktop-first web application
+- **Cloud / Hosting:** Vercel (prototype deployment)
+- **Data:** In-memory application state and static JSON mock data
+- **APIs & Logic:** Internal deterministic state derivation using pure functions, no external APIs
+- **Architecture Concepts:** Append-only event ledger, immutable event log, distributed-system-inspired loan state resolution
+- **Development Tools:** Node.js, GitHub
 
-## Learn More
+## Design and Architecture
+The application is structured around a simple but powerful data model. Each loan event is immutable and includes the asserting party, timestamp, required acknowledgements, and optional evidence links. A pure function computes the effective status of each event based on the presence or absence of required acknowledgements. The UI presents the loan as a timeline, clearly distinguishing events that are fully effective, partially acknowledged, or pending. Ambiguity is visually emphasized to make operational risk immediately apparent.
 
-To learn more about Next.js, take a look at the following resources:
+## Mock Data
+The prototype uses a single sample loan, four parties (agent, two lenders, and a borrower), and a series of five to seven events that demonstrate:  
+- Fully effective events  
+- Partially acknowledged events  
+- Events with unresolved status to highlight ambiguity
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Target Users
+- Loan operations teams  
+- Agent banks  
+- Credit officers  
+- Legal and compliance departments
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Commercial Value
+LSL provides operational clarity that reduces disputes, accelerates loan workflows, and mitigates legal and financial risk. It acts as a coordination layer above existing systems, making loan state visible and actionable without requiring replacement of legacy platforms.
 
-## Deploy on Vercel
+## Success Criteria
+The prototype is successful if a user can immediately determine the current effective state of a loan and understand why, with unresolved events clearly highlighted. This demonstrates the value of deterministic state management in complex, multi-party financial workflows.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Disclaimer
+This project is a hackathon prototype built to demonstrate concept and architecture. It is not intended for production use.
