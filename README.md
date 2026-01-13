@@ -36,7 +36,8 @@ The application is structured around a simple but powerful data model. Each loan
 The prototype uses a single sample loan, four parties (agent, two lenders, and a borrower), and a series of five to seven events that demonstrate:  
 - Fully effective events  
 - Partially acknowledged events  
-- Events with unresolved status to highlight ambiguity
+- Events with unresolved status to highlight ambiguit
+- See addiotnal sreen mockups in the /public/mockups/ folder.
 
 ## Target Users
 - Loan operations teams  
