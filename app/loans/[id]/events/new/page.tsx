@@ -11,7 +11,7 @@ export default function NewEventPage() {
     const { getLoan, addEvent } = useLoan();
     const router = useRouter();
 
-    const loanId = Array.isArray(id) ? id[0] : id;
+    const loanId = (Array.isArray(id) ? id[0] : id) || "";
     const loan = getLoan(loanId);
 
     const [formData, setFormData] = useState({

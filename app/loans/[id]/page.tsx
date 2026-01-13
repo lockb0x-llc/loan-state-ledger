@@ -10,7 +10,7 @@ export default function LoanPage() {
     const { id } = useParams();
     const { getLoan } = useLoan();
 
-    const loan = getLoan(Array.isArray(id) ? id[0] : id);
+    const loan = getLoan((Array.isArray(id) ? id[0] : id) || "");
 
     if (!loan) {
         return (
