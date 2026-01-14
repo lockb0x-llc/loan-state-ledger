@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style="">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>The Ask: Why Us?</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0F172A;
+            overflow: hidden;
+        }
+
+        /* Background Elements - Closing Theme */
+        .orb-1 {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 800px;
+            height: 800px;
+            background-color: #4F46E5;
+            /* Indigo 600 */
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .orb-2 {
+            position: absolute;
+            bottom: -200px;
+            left: -200px;
+            width: 800px;
+            height: 800px;
+            background-color: #2563EB;
+            /* Blue 600 */
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .svg-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.05;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            padding: 60px 80px;
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* Left Column: Why Us */
+        .left-column {
+            flex: 1.1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #818CF8;
+            /* Indigo 400 */
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-tag::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #818CF8;
+            margin-right: 12px;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0 0 40px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .credential-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .credential-item:hover {
+            transform: translateX(5px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(129, 140, 248, 0.2);
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(129, 140, 248, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #818CF8;
+            font-size: 20px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .item-text h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+            color: #F8FAFC;
+        }
+
+        .item-text p {
+            margin: 0;
+            font-size: 15px;
+            color: #94A3B8;
+            line-height: 1.5;
+        }
+
+        /* Right Column: Contact Card */
+        .right-column {
+            flex: 0.9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact-card {
+            width: 100%;
+            background-color: #1E293B;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background-color: #818CF8;
+        }
+
+        .avatar-placeholder {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #818CF8;
+            border: 2px solid #818CF8;
+        }
+
+        .contact-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .contact-subtitle {
+            font-size: 16px;
+            color: #94A3B8;
+            margin-bottom: 32px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 12px 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-row i {
+            color: #818CF8;
+            width: 24px;
+            margin-right: 12px;
+        }
+
+        .info-row span {
+            color: #E2E8F0;
+            font-size: 15px;
+        }
+
+        .cta-button {
+            margin-top: 16px;
+            background-color: #4F46E5;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 12px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            font-size: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button:hover {
+            background-color: #4338CA;
+        }
+
+        .highlight-text {
+            color: #818CF8;
+        }
+
+        .footer-logo {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            opacity: 0.3;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open%20Sans:wght@400&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google%20Sans:wght@400&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto%20Sans%20JP:wght@400&amp;display=swap" rel="stylesheet">
+</head>
+
+<body style="">
+    <div class="slide-container">
+        <!-- Backgrounds -->
+        <div class="orb-1"></div>
+        <div class="orb-2"></div>
+        <svg class="svg-bg" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern height="40" id="hex" patternUnits="userSpaceOnUse" width="40">
+                    <path d="M0 20 L20 0 L40 20 L20 40 Z" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1">
+                    </path>
+                </pattern>
+            </defs>
+            <rect fill="url(#hex)" height="100%" width="100%"></rect>
+        </svg>
+        <div class="content-wrapper">
+            <!-- Left Column: Why Us -->
+            <div class="left-column">
+                <div class="section-tag">The Ask</div>
+                <h1>Why <span class="highlight-text">Us?</span></h1>
+                <div class="credential-list">
+                    <!-- Item 1: Insight -->
+                    <div class="credential-item">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div class="item-text">
+                            <h3>Deep Insight</h3>
+                            <p>We understand the "Agency Dilemma." We know exactly where the $5T friction lives in the
+                                middle office.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2: Execution -->
+                    <div class="credential-item">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                        <div class="item-text">
+                            <h3>Rapid Execution</h3>
+                            <p>We didn't just design slides. We built a fully deployed, AI-integrated prototype in <span
+                                    style="color: #F8FAFC; font-weight: 700; background: rgba(129, 140, 248, 0.2); padding: 0 4px; border-radius: 4px;">&lt;
+                                    48 hours</span>.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3: Experience -->
+                    <div class="credential-item">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-users-gear"></i>
+                        </div>
+                        <div class="item-text">
+                            <h3>Full Stack DNA</h3>
+                            <p>A rare combination of Financial Domain Expertise, Systems Architecture, and Modern
+                                Product Design.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Contact -->
+            <div class="right-column">
+                <div class="contact-card">
+                    <div class="avatar-placeholder">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h2 class="contact-title">Let's Partner</h2>
+                    <p class="contact-subtitle">We are looking for pilot partners to bring the Loan State Ledger to
+                        life.</p>
+                    <div class="info-row">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>hello@loanledger.com</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fa-brands fa-linkedin"></i>
+                        <span>linkedin.com/company/loan-ledger</span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>app.loanledger.com</span>
+                    </div>
+                    <div class="cta-button">
+                        <span>Launch Live Demo</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-logo">LOAN STATE LEDGER</div>
+    </div>
+
+</body>
+
+</html>

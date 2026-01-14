@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Technical Architecture</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0F172A;
+            overflow: hidden;
+        }
+
+        /* Background Elements - Tech/Structural Theme */
+        .orb-1 {
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 800px;
+            height: 800px;
+            background-color: #3B82F6;
+            /* Blue 500 */
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .orb-2 {
+            position: absolute;
+            bottom: -200px;
+            left: -100px;
+            width: 700px;
+            height: 700px;
+            background-color: #6366F1;
+            /* Indigo 500 */
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .svg-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.05;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            padding: 50px 80px;
+            gap: 60px;
+        }
+
+        /* Left Column: Text & Concept */
+        .text-column {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #818CF8;
+            /* Indigo 400 */
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-tag::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #818CF8;
+            margin-right: 12px;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0 0 32px 0;
+            letter-spacing: -0.02em;
+        }
+
+        /* Architecture Note Box */
+        .arch-note-box {
+            background-color: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 32px;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .arch-note-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #A5B4FC;
+            /* Indigo 200 */
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .arch-note-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #C7D2FE;
+            /* Indigo 100 */
+        }
+
+        .icon-circle-small {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(165, 180, 252, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+
+        /* Right Column: Layered Diagram */
+        .diagram-column {
+            flex: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .stack-container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+        }
+
+        /* Connecting vertical line behind stack */
+        .stack-line {
+            position: absolute;
+            left: 50%;
+            top: 40px;
+            bottom: 40px;
+            width: 2px;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(-50%);
+            z-index: 0;
+            border-left: 2px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .stack-layer {
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .stack-layer:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Specific Layer Styling */
+        .layer-frontend {
+            border-left: 4px solid #38BDF8;
+        }
+
+        .layer-state {
+            border-left: 4px solid #FBBF24;
+        }
+
+        .layer-ai {
+            border-left: 4px solid #A78BFA;
+        }
+
+        .layer-deploy {
+            border-left: 4px solid #94A3B8;
+        }
+
+        .layer-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .icon-frontend {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: #38BDF8;
+        }
+
+        .icon-state {
+            background-color: rgba(251, 191, 36, 0.1);
+            color: #FBBF24;
+        }
+
+        .icon-ai {
+            background-color: rgba(167, 139, 250, 0.1);
+            color: #A78BFA;
+        }
+
+        .icon-deploy {
+            background-color: rgba(148, 163, 184, 0.1);
+            color: #94A3B8;
+        }
+
+        .layer-content h3 {
+            margin: 0 0 4px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .layer-content p {
+            margin: 0;
+            font-size: 13px;
+            color: #94A3B8;
+        }
+
+        .tech-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #CBD5E1;
+            margin-left: 8px;
+            vertical-align: middle;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Visual connection arrows */
+        .arrow-down {
+            position: absolute;
+            left: 50%;
+            bottom: -18px;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            z-index: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <!-- Backgrounds -->
+        <div class="orb-1"></div>
+        <div class="orb-2"></div>
+        <svg class="svg-bg" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern height="40" id="microchip" patternunits="userSpaceOnUse" width="40">
+                    <path d="M0 20 h40 M20 0 v40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"></path>
+                    <rect fill="rgba(255,255,255,0.05)" height="4" width="4" x="18" y="18"></rect>
+                </pattern>
+            </defs>
+            <rect fill="url(#microchip)" height="100%" width="100%"></rect>
+        </svg>
+        <div class="content-wrapper">
+            <!-- Left Column -->
+            <div class="text-column">
+                <div class="section-tag">Technical Architecture</div>
+                <h1>Modern, Scalable,<br />Secure</h1>
+                <p style="font-size: 18px; color: #CBD5E1; line-height: 1.6; max-width: 480px;">
+                    Built on a next-generation stack designed for speed, auditability, and enterprise-grade security.
+                </p>
+                <div class="arch-note-box">
+                    <div class="arch-note-title">
+                        <div class="icon-circle-small"><i class="fa-solid fa-link"></i></div>
+                        Link-First Architecture
+                    </div>
+                    <p class="arch-note-text">
+                        We decoupled the state logic from the UI. This means our ledger is portable—it can run on a
+                        centralized SQL database today and migrate to a blockchain (Ethereum/Hyperledger) tomorrow
+                        without changing the frontend experience.
+                    </p>
+                </div>
+            </div>
+            <!-- Right Column: The Stack Diagram -->
+            <div class="diagram-column">
+                <div class="stack-container">
+                    <div class="stack-line"></div>
+                    <!-- Layer 1: Frontend -->
+                    <div class="stack-layer layer-frontend">
+                        <div class="layer-icon-box icon-frontend">
+                            <i class="fa-brands fa-react"></i>
+                        </div>
+                        <div class="layer-content">
+                            <h3>Frontend Interface <span class="tech-badge">Next.js</span></h3>
+                            <p>React Server Components for instant performance and edge caching.</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-down arrow-down"></i>
+                    </div>
+                    <!-- Layer 2: State Engine -->
+                    <div class="stack-layer layer-state">
+                        <div class="layer-icon-box icon-state">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="layer-content">
+                            <h3>State Engine <span class="tech-badge">TypeScript</span></h3>
+                            <p>Deterministic State Resolver. The mathematical "Truth" of the ledger.</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-down arrow-down"></i>
+                    </div>
+                    <!-- Layer 3: AI/ML -->
+                    <div class="stack-layer layer-ai">
+                        <div class="layer-icon-box icon-ai">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div class="layer-content">
+                            <h3>AI Processing Layer <span class="tech-badge">Azure AI</span></h3>
+                            <p>Document Intelligence for extracting unstructured data from PDF certificates.</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-down arrow-down"></i>
+                    </div>
+                    <!-- Layer 4: Deployment -->
+                    <div class="stack-layer layer-deploy">
+                        <div class="layer-icon-box icon-deploy">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <div class="layer-content">
+                            <h3>Global Deployment <span class="tech-badge">Vercel</span> <span class="tech-badge">Azure
+                                    Static Apps</span></h3>
+                            <p>Edge-optimized delivery ensuring low latency for global banking teams.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
