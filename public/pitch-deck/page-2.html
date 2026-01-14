@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>The Problem: The Agency Dilemma</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0F172A;
+            overflow: hidden;
+        }
+
+        /* Background Elements - Consistent with Slide 1 but adjusted */
+        .orb-1 {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            background-color: #1E293B;
+            /* Darker, subtler for problem slide */
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .orb-2 {
+            position: absolute;
+            bottom: -200px;
+            left: -100px;
+            width: 700px;
+            height: 700px;
+            background-color: #EF4444;
+            /* Red tint for 'Problem' context */
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.08;
+            z-index: 0;
+        }
+
+        .svg-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.05;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px;
+        }
+
+        /* Typography */
+        .section-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #F87171;
+            /* Red 400 */
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-tag::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #F87171;
+            margin-right: 12px;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0 0 40px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 32px;
+            flex: 1;
+            align-items: stretch;
+        }
+
+        .problem-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            /* Slate 800 with opacity */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .card-main {
+            flex: 1.2;
+            /* Slightly wider */
+        }
+
+        .card-secondary {
+            flex: 1;
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        .icon-box.asymmetry {
+            background-color: rgba(96, 165, 250, 0.1);
+            color: #60A5FA;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+        }
+
+        .icon-box.cost {
+            background-color: rgba(248, 113, 113, 0.1);
+            color: #F87171;
+            border: 1px solid rgba(248, 113, 113, 0.2);
+        }
+
+        .icon-box.friction {
+            background-color: rgba(251, 191, 36, 0.1);
+            color: #FBBF24;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            color: #F1F5F9;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #94A3B8;
+            margin: 0;
+        }
+
+        .cost-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0 0 0;
+        }
+
+        .cost-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            color: #CBD5E1;
+            font-size: 15px;
+        }
+
+        .cost-list li i {
+            margin-top: 5px;
+            margin-right: 12px;
+            font-size: 12px;
+            color: #F87171;
+        }
+
+        .highlight-text {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .stat-highlight {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748B;
+            margin-bottom: 8px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <!-- Abstract Background -->
+        <div class="orb-1"></div>
+        <div class="orb-2"></div>
+        <svg class="svg-bg" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"></path>
+                </pattern>
+            </defs>
+            <rect fill="url(#grid)" height="100%" width="100%"></rect>
+        </svg>
+        <div class="content-wrapper">
+            <div class="section-tag">The Agency Dilemma</div>
+            <h1>The <span class="text-blue-400">$5 Trillion</span> "Telephone Game"</h1>
+            <div class="cards-container">
+                <!-- Card 1: Information Asymmetry -->
+                <div class="problem-card card-secondary">
+                    <div class="icon-box asymmetry">
+                        <i class="fa-solid fa-eye-slash"></i>
+                    </div>
+                    <h3>Information Asymmetry</h3>
+                    <p>
+                        In syndicated loans, the <span class="highlight-text">Agent Bank</span> holds the "golden
+                        record."
+                        Meanwhile, Lenders and Borrowers operate in the dark, relying on delayed reports and static PDFs
+                        to understand their own positions.
+                    </p>
+                </div>
+                <!-- Card 2: The Agency Cost -->
+                <div class="problem-card card-main">
+                    <div class="icon-box cost">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <h3>The Agency Cost</h3>
+                    <p>The price of coordinating truth via email:</p>
+                    <ul class="cost-list">
+                        <li>
+                            <i class="fa-solid fa-xmark"></i>
+                            <span>Hours spent reconciling Excel sheets vs. PDFs manually.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-xmark"></i>
+                            <span>Delayed draws and payments due to state ambiguity.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span><span class="highlight-text">Zero real-time visibility</span> into risk, such as
+                                covenant breaches.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Card 3: The Core Friction -->
+                <div class="problem-card card-secondary">
+                    <div class="icon-box friction">
+                        <i class="fa-solid fa-file-signature"></i>
+                    </div>
+                    <h3>The Core Friction</h3>
+                    <p>
+                        Trust currently relies on <span class="highlight-text">manual verification</span>, not
+                        cryptographic proof.
+                    </p>
+                    <div style="margin-top: auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <p style="font-size: 14px; font-style: italic; color: #64748B;">
+                            "When you have 50 lenders and 1 borrower managed by 1 agent, the cost of coordinating the
+                            truth is massive."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

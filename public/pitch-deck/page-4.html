@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Covenants: Automating Compliance</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0F172A;
+            overflow: hidden;
+        }
+
+        /* Background Elements - AI/Tech Theme (Purple/Blue) */
+        .orb-1 {
+            position: absolute;
+            top: -100px;
+            right: -200px;
+            width: 800px;
+            height: 800px;
+            background-color: #7C3AED;
+            /* Violet 600 */
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .orb-2 {
+            position: absolute;
+            bottom: -200px;
+            left: -200px;
+            width: 700px;
+            height: 700px;
+            background-color: #2563EB;
+            /* Blue 600 */
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .svg-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            padding: 60px 80px;
+            gap: 60px;
+        }
+
+        /* Left Column Typography */
+        .text-column {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #A78BFA;
+            /* Violet 400 */
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-tag::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #A78BFA;
+            margin-right: 12px;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0 0 32px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .bottleneck-box {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid #F87171;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 32px;
+        }
+
+        .bottleneck-title {
+            color: #F87171;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-card {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: auto;
+        }
+
+        .comparison-stat {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #34D399;
+            margin-bottom: 4px;
+        }
+
+        .comparison-label {
+            font-size: 14px;
+            color: #D1FAE5;
+            opacity: 0.8;
+        }
+
+        .strikethrough {
+            text-decoration: line-through;
+            color: #94A3B8;
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        /* Right Column Workflow */
+        .workflow-column {
+            flex: 1.2;
+            position: relative;
+            background-color: rgba(30, 41, 59, 0.4);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .workflow-step:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Connecting Line */
+        .workflow-line {
+            position: absolute;
+            left: 70px;
+            top: 60px;
+            bottom: 60px;
+            width: 2px;
+            background-color: rgba(167, 139, 250, 0.3);
+            z-index: 1;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background-color: #1E293B;
+            border: 1px solid #A78BFA;
+            color: #A78BFA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 24px;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.15);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-content {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            flex: 1;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .step-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: #94A3B8;
+            line-height: 1.5;
+        }
+
+        .azure-badge {
+            background-color: #0078D4;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Glow effect for final step */
+        .step-icon.final {
+            background-color: #34D399;
+            border-color: #34D399;
+            color: #064E3B;
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.4);
+        }
+
+        .step-content.final {
+            background-color: rgba(52, 211, 153, 0.1);
+            border-color: rgba(52, 211, 153, 0.3);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 24px;
+            height: 24px;
+            background-color: #334155;
+            border: 2px solid #0F172A;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <!-- Backgrounds -->
+        <div class="orb-1"></div>
+        <div class="orb-2"></div>
+        <svg class="svg-bg" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern height="40" id="circuit" patternunits="userSpaceOnUse" width="40">
+                    <path d="M0 20 h40 M20 0 v40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"></path>
+                    <rect fill="rgba(255,255,255,0.05)" height="2" width="2" x="19" y="19"></rect>
+                </pattern>
+            </defs>
+            <rect fill="url(#circuit)" height="100%" width="100%"></rect>
+        </svg>
+        <div class="content-wrapper">
+            <!-- Left Column: Context -->
+            <div class="text-column">
+                <div class="section-tag">Smart Covenants</div>
+                <h1>Automating Compliance with <span style="color: #60A5FA;">Azure AI</span></h1>
+                <div class="bottleneck-box">
+                    <p class="bottleneck-title"><i class="fa-solid fa-triangle-exclamation mr-2"></i> The Old Way</p>
+                    <p style="font-size: 15px; color: #CBD5E1; line-height: 1.5;">
+                        Compliance Certificates are 100-page PDFs hidden in email attachments. Humans manually verify
+                        data, leading to errors and delays.
+                    </p>
+                </div>
+                <p style="font-size: 18px; color: #E2E8F0; margin-bottom: 32px; line-height: 1.6;">
+                    Our <strong>"Auto-Covenant" Bots</strong> turn static documents into active ledger events, removing
+                    the manual bottleneck entirely.
+                </p>
+                <div class="comparison-card">
+                    <div style="display: flex; align-items: baseline;">
+                        <span class="strikethrough">45-Day Delay</span>
+                        <span class="comparison-stat">Real-Time</span>
+                    </div>
+                    <p class="comparison-label">Risk Signaling Speed</p>
+                </div>
+            </div>
+            <!-- Right Column: Visual Workflow -->
+            <div class="workflow-column">
+                <div class="workflow-line"></div>
+                <!-- Step 1: Ingest -->
+                <div class="workflow-step">
+                    <div class="step-icon">
+                        <span class="step-number">1</span>
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-title">Ingest <span class="azure-badge">Azure AI</span></div>
+                        <p class="step-desc">Document Intelligence extracts unstructured financial data (EBITDA, Total
+                            Debt) from uploaded PDFs.</p>
+                    </div>
+                </div>
+                <!-- Step 2: Compute -->
+                <div class="workflow-step">
+                    <div class="step-icon">
+                        <span class="step-number">2</span>
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-title">Compute</div>
+                        <p class="step-desc">The system automatically runs the covenant math logic defined in the smart
+                            contract.</p>
+                        <div
+                            style="margin-top: 8px; font-family: monospace; color: #A78BFA; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 4px; font-size: 12px; display: inline-block;">
+                            Net Leverage = 4.5x &lt; 5.0x
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3: Assert -->
+                <div class="workflow-step">
+                    <div class="step-icon final">
+                        <span class="step-number">3</span>
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div class="step-content final">
+                        <div class="step-title" style="color: #34D399;">Assert</div>
+                        <p class="step-desc" style="color: #D1FAE5;">The Bot asserts a <strong>PASS</strong> event
+                            directly onto the ledger. Risk status updates instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

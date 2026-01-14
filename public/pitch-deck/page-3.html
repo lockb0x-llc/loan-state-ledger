@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>The Solution: A Deterministic System of Record</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #ffffff;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #0F172A;
+            overflow: hidden;
+        }
+
+        /* Background Elements - Positive Tones (Blue/Green) */
+        .orb-1 {
+            position: absolute;
+            top: -150px;
+            right: -100px;
+            width: 700px;
+            height: 700px;
+            background-color: #059669;
+            /* Emerald 600 */
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .orb-2 {
+            position: absolute;
+            bottom: -200px;
+            left: -100px;
+            width: 700px;
+            height: 700px;
+            background-color: #2563EB;
+            /* Blue 600 */
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .svg-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px;
+        }
+
+        /* Typography */
+        .section-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #34D399;
+            /* Emerald 400 */
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-tag::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: #34D399;
+            margin-right: 12px;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0 0 48px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            height: 380px;
+        }
+
+        .solution-card {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            /* Emerald border tint */
+            border-radius: 24px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Top accent line */
+        .solution-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #34D399;
+            opacity: 0.5;
+        }
+
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 24px;
+            background-color: rgba(52, 211, 153, 0.1);
+            color: #34D399;
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+
+        /* Distinct color for middle card */
+        .solution-card:nth-child(2) .icon-circle,
+        .solution-card:nth-child(2)::after {
+            background-color: #60A5FA;
+            /* Blue 400 */
+            border-color: rgba(96, 165, 250, 0.3);
+            color: #60A5FA;
+        }
+
+        .solution-card:nth-child(2) {
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        /* Distinct color for third card */
+        .solution-card:nth-child(3) .icon-circle,
+        .solution-card:nth-child(3)::after {
+            background-color: #A78BFA;
+            /* Violet 400 */
+            border-color: rgba(167, 139, 250, 0.3);
+            color: #A78BFA;
+        }
+
+        .solution-card:nth-child(3) {
+            border-color: rgba(167, 139, 250, 0.3);
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            color: #fff;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #94A3B8;
+            margin: 0;
+            flex: 1;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            margin-top: 24px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #CBD5E1;
+            width: fit-content;
+        }
+
+        .arrow-graphic {
+            font-size: 14px;
+            color: #60A5FA;
+            font-family: monospace;
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <!-- Abstract Background -->
+        <div class="orb-1"></div>
+        <div class="orb-2"></div>
+        <!-- Tech Grid Pattern -->
+        <svg class="svg-bg" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern height="40" id="tech-grid" patternunits="userSpaceOnUse" width="40">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#34D399" stroke-width="0.3"></path>
+                    <circle cx="0" cy="0" fill="#34D399" r="1"></circle>
+                </pattern>
+            </defs>
+            <rect fill="url(#tech-grid)" height="100%" width="100%"></rect>
+        </svg>
+        <div class="content-wrapper">
+            <div class="section-tag">The Solution</div>
+            <h1>A Deterministic <span style="color: #34D399;">System of Record</span></h1>
+            <div class="solution-grid">
+                <!-- Card 1: One Ledger -->
+                <div class="solution-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-link"></i>
+                    </div>
+                    <h3>One Ledger, One Truth</h3>
+                    <p>
+                        A shared, append-only, immutable ledger for every facility. Instead of siloed databases, all
+                        participants share a single source of truth.
+                    </p>
+                    <div class="feature-tag">
+                        <i class="fa-solid fa-database mr-2"></i> Shared Infrastructure
+                    </div>
+                </div>
+                <!-- Card 2: State, Not Messages -->
+                <div class="solution-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <h3>State, Not Messages</h3>
+                    <p>
+                        We don't just send emails; we transition the mathematical state of the loan. Every action is a
+                        verifiable data event.
+                    </p>
+                    <!-- Visualizing State Transition -->
+                    <div class="arrow-graphic">
+                        Pending <i class="fa-solid fa-arrow-right mx-1"></i> Asserted <i
+                            class="fa-solid fa-arrow-right mx-1"></i> Effective
+                    </div>
+                </div>
+                <!-- Card 3: Golden Source -->
+                <div class="solution-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-check-double"></i>
+                    </div>
+                    <h3>Golden Source</h3>
+                    <p>
+                        All parties (Agent, Lender, Borrower) see the exact same computed state in real-time,
+                        effectively eliminating the need for reconciliation.
+                    </p>
+                    <div class="feature-tag">
+                        <i class="fa-solid fa-infinity mr-2"></i> Zero Reconciliation
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
