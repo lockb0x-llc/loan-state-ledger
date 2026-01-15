@@ -11,6 +11,17 @@ In syndicated loans, multiple parties—agent banks, lenders, borrowers, and leg
 ## Solution
 LSL introduces a deterministic, append-only ledger that tracks loan events from assertion through acknowledgement to effective status. It visualizes loan state in a clear timeline and highlights ambiguities, making the current status of any loan transparent and auditable. The prototype demonstrates how a distributed-system-inspired model can reduce disputes and operational risk without replacing existing systems.
 
+# HOWTO: Run in GitHub Codespaces
+
+1. Open this repo in a GitHub Codespace.
+2. In the Codespace terminal, run:
+	```bash
+	npm install
+	npm run dev
+	```
+3. In the Codespace interface, go to the "Ports" tab.
+4. Find port 3000 and click "Open in Browser" to view the app.
+
 ## Core Features
 - Append-only loan event ledger capturing every action and acknowledgement.
 - Deterministic derivation of event state: **ASSERTED**, **PENDING**, or **EFFECTIVE**.
@@ -28,6 +39,8 @@ LSL introduces a deterministic, append-only ledger that tracks loan events from 
 - **APIs & Logic:** Internal deterministic state derivation using pure functions, no external APIs
 - **Architecture Concepts:** Append-only event ledger, immutable event log, distributed-system-inspired loan state resolution
 - **Development Tools:** Node.js, GitHub
+
+
 
 ## Design and Architecture
 The application is structured around a simple but powerful data model. Each loan event is immutable and includes the asserting party, timestamp, required acknowledgements, and optional evidence links. A pure function computes the effective status of each event based on the presence or absence of required acknowledgements. The UI presents the loan as a timeline, clearly distinguishing events that are fully effective, partially acknowledged, or pending. Ambiguity is visually emphasized to make operational risk immediately apparent.
